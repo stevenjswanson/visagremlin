@@ -1,3 +1,3 @@
 Click here:
 
-(./test.html)[test.html]
+[./test.html](test.html)

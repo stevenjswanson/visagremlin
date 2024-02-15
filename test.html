@@ -1,25 +1,37 @@
 <html>
 <script>
-  var delay = 0;
+  var redirect_delay = 0;
+  var remaining_delay = 0;
+  var time_step = 1000;
+  var reload_delay = 30*60*1000;
   
   function redirect () {
-      console.log("redirecting at ", Math.trunc(Date.now()/1000.0) % 10000)
+      remaining_delay = remaining_delay - time_step;
+      document.getElementById("countdown").textContent = Math.trunc(remaining_delay/1000);
+      
+      if (remaining_delay <= 0) {
+	  console.log("redirecting at ", Math.trunc(Date.now()/1000.0) % 10000)
 	  elem = document.getElementById("theframe");
 	  elem.src = "https://www.citaconsular.es/es/hosteds/widgetdefault/275f65e80ce06aaf5cd24cebd11311897#selectservice/bkt276914";
-      setTimeout(redirect, delay)
+	  remaining_delay = redirect_delay;
+      }
+      setTimeout(redirect, time_step)
   }
-  
+
+  function reload() {
+      location.reload();
+  }
   function go(requested_delay) {
       if (requested_delay == 0)  {
-	  delay = 5*60*1000;
+	  redirect_delay = 5*60*1000;
       } else {
-	  delay = requested_delay;
+	  redirect_delay = requested_delay;
       }
 	  
-      console.log("first time")
-      setTimeout(redirect, delay)
-      
-}
+      console.log("first time");
+      setTimeout(redirect, time_step);
+      setTimeout(reload, reload_delay);
+  }
 </script>
 <body onload="go(5*60*1000)">
 
@@ -27,6 +39,7 @@
     If you see appointments available, click <h1><a href="https://www.citaconsular.es/es/hosteds/widgetdefault/275f65e80ce06aaf5cd24cebd11311897#service">HERE</a></h1>
     
   </div>
+  <div>Checking again in <span id="countdown">NAN</span> seconds</div>
   <div>
 
 <iframe __onload="go(5*60*1000)" id="theframe" src="https://www.citaconsular.es/es/hosteds/widgetdefault/275f65e80ce06aaf5cd24cebd11311897#services" width=400 height=3000></iframe>
@@ -34,4 +47,3 @@
 </div>
 </body>
 </html>
-

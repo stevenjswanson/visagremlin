@@ -1,0 +1,37 @@
+<html>
+<script>
+  var delay = 0;
+  
+  function redirect () {
+      console.log("redirecting at ", Math.trunc(Date.now()/1000.0) % 10000)
+	  elem = document.getElementById("theframe");
+	  elem.src = "https://www.citaconsular.es/es/hosteds/widgetdefault/275f65e80ce06aaf5cd24cebd11311897#selectservice/bkt276914";
+      setTimeout(redirect, delay)
+  }
+  
+  function go(requested_delay) {
+      if (requested_delay == 0)  {
+	  delay = 5*60*1000;
+      } else {
+	  delay = requested_delay;
+      }
+	  
+      console.log("first time")
+      setTimeout(redirect, delay)
+      
+}
+</script>
+<body onload="go(10000)">
+
+  <div>
+    If you see appointments available, click <h1><a href="https://www.citaconsular.es/es/hosteds/widgetdefault/275f65e80ce06aaf5cd24cebd11311897#service">HERE</a></h1>
+    
+  </div>
+  <div>
+
+<iframe __onload="go(10000)" id="theframe" src="https://www.citaconsular.es/es/hosteds/widgetdefault/275f65e80ce06aaf5cd24cebd11311897#services" width=1000 height=1000></iframe>
+
+</div>
+</body>
+</html>
+
